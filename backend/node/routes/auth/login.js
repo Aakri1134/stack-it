@@ -27,17 +27,21 @@ login.post("/", async (req, res) => {
   if (!jwtID) {
     return res.status(500).json({ error: "Failed to generate JWT ID" })
   }
-  const token = jwt.sign(
-    {
+
+  const obj = {
       iss: process.env.ISSUER || "Codemons",
       type: role || "user",
       exp: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60, // 1 hour expiration
       iat: Math.floor(Date.now() / 1000),
 			jti: jwtID,
-      userId: user._id,
+      id: user._id,
       username: user.username,
       email: user.email,
-    },
+    }
+
+  console.log(obj)
+  const token = jwt.sign(
+    obj,
     process.env.JWT_SECRET
   )
 
@@ -54,7 +58,8 @@ login.post("/", async (req, res) => {
     message: "Login successful",
     user: { username: user.username, email: user.email },
     token,
-    type: "user",
+    id: user._id,
+    type: role || "user",
   })
 })
 

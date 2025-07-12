@@ -14,12 +14,14 @@ const roleSchema = z.enum(["user", "admin"])
 
 export const validateUserInput = (req, res, next) => {
   if (!req.body || Object.keys(req.body).length === 0) {
-    if (process.env.NODE_ENV === "development") {
-      next()
-      return
-    } else {
+    // if (process.env.NODE_ENV === "development") {
+    //   next()
+    //   return
+    // } else {
+    //   return res.status(400).json({ error: "Request body is required" })
+    // }
       return res.status(400).json({ error: "Request body is required" })
-    }
+    
   }
   const { username, email, password, role } = req.body
   try {

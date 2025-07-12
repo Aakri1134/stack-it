@@ -19,6 +19,7 @@ getUser.get("/", jwtAuthentication, async (req, res) => {
     return res.status(200).json({
       message: "User retrieved successfully",
       user: {
+        id: user._id,
         username: user.username,
         email: user.email,
         role: user.type,

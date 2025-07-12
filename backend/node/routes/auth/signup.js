@@ -44,7 +44,7 @@ signup.post("/", async (req, res) => {
       exp: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60, // 1 hour expiration
       iat: Math.floor(Date.now() / 1000),
 
-      userId: newUser._id,
+      id: newUser._id,
       username: newUser.username,
       email: newUser.email,
     },
@@ -53,6 +53,7 @@ signup.post("/", async (req, res) => {
   return res.status(201).json({
     message: "User registered successfully",
     user: { username },
+    id: newUser._id,
     email: { email },
     type: role || "user",
     token

@@ -1,11 +1,16 @@
 import { Router } from "express"
 import jwtAuthentication from "../../middleware/jwtAuthentication.js"
+import { Question } from "../../db/schema.js"
 
 const postQuestion = Router()
 
-postQuestion.get("/", jwtAuthentication, async (req, res) => {
+postQuestion.post("/", jwtAuthentication, async (req, res) => {
   const { title, description, tags } = req.body
-  const userId = req.user.id
+  const userId = req.user.userId
+  console.log("User ID:", userId)
+  if (!userId) {
+    return res.status(400).json({ error: "User ID is required" })
+  }
   if (!title || !description) {
     return res.status(400).json({ error: "Title and description are required" })
   }
