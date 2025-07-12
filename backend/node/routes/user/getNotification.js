@@ -1,5 +1,6 @@
 import { Router } from "express"
 import { User } from "../../db/schema.js"
+import jwtAuthentication from "../../middleware/jwtAuthentication.js"
 
 const getNotification = Router()
 
@@ -24,3 +25,5 @@ getNotification.get("/", jwtAuthentication, async (req, res) => {
     return res.status(500).json({ error: "Internal Server Error" })
   }
 })
+
+export default getNotification

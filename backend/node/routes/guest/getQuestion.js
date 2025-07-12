@@ -24,11 +24,7 @@ getQuestion.get("/:id", async (req, res) => {
         answers: question.answers,
         upvotes: question.upvotes,
         downvotes: question.downvotes,
-        user: {
-          id: question.user._id,
-          username: question.user.username,
-          email: question.user.email,
-        },
+        user: question.user,
         createdAt: question.createdAt,
         updatedAt: question.updatedAt,
       },

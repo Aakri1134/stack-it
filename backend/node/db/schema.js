@@ -58,7 +58,7 @@ const userSchema = new mongoose.Schema({
     {
       type: {
         type: String,
-        enum: ["answer", "upvote", "downvote"],
+        enum: ["answer", "upvote", "downvote", "tag"],
         required: true,
       },
       message: {
