@@ -21,3 +21,7 @@ The team consists of 4 members-
 - Utkarsh Pandey ( utkarshpandey0214@gmail.com )
 - Kumar Abhishek Ranjan ( kumarabhishek706134@gmail.com )
 - Suryanshu Choudhary ( suryanshuc659@gmail.com )
+
+## Tech Stack
+
+- React.js \w shadcn
