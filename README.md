@@ -24,4 +24,6 @@ The team consists of 4 members-
 
 ## Tech Stack
 
-- React.js \w shadcn
+- Frontend with React.js \w shadcn
+- Backend with NodeJS + Express + MongoDB
+- Recommendation? Similarity system using python
