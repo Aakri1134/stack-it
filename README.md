@@ -1,5 +1,7 @@
 # Description
 
+Note : If you get a problem related to crypto.hash use node version node: ^20.19.0 || >=22.12.0
+
 ## Problem Statement 2
 
 ### StackIt – A Minimal Q&A Forum Platform
