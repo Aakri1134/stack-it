@@ -6,7 +6,7 @@ const postQuestion = Router()
 
 postQuestion.post("/", jwtAuthentication, async (req, res) => {
   const { title, description, tags } = req.body
-  const userId = req.user.userId
+  const userId = req.user.id
   console.log("User ID:", userId)
   if (!userId) {
     return res.status(400).json({ error: "User ID is required" })

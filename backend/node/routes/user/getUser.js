@@ -5,7 +5,7 @@ import jwtAuthentication from "../../middleware/jwtAuthentication.js";
 const getUser = Router();
 
 getUser.get("/", jwtAuthentication, async (req, res) => {
-  const userId = req.user.userId;
+  const userId = req.user.id;
   if (!userId) {
     return res.status(400).json({ error: "User ID is required" });
   }
