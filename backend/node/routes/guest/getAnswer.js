@@ -33,3 +33,4 @@ getAnswer.get("/:id", async (req, res) => {
   }
 });
 
+export default getAnswer;

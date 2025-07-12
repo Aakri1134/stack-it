@@ -35,3 +35,4 @@ getQuestion.get("/:id", async (req, res) => {
   }
 });
 
+export default getQuestion;
