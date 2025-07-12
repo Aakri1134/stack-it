@@ -4,6 +4,7 @@ import postQuestion from "./postQuestion.js";
 import postAnswer from "./postAnswer.js";
 import upvote from "./upvote.js";
 import downvote from "./downvote.js";
+import getNotification from "./getNotification.js";
 
 const user = Router();
 
@@ -15,6 +16,7 @@ user.use("/postQuestion", postQuestion);
 user.use("/postAnswer", postAnswer);
 user.use("/upvote", upvote);
 user.use("/downvote", downvote);
+user.use("/getNotification", getNotification);
 
 
 export default user;
