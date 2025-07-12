@@ -5,6 +5,7 @@ import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import Highlight from '@tiptap/extension-highlight';
 import Link from '@tiptap/extension-link';
+import Image from '@tiptap/extension-image';
 import { 
   Bold, 
   Italic, 
@@ -23,7 +24,8 @@ import {
   Code,
   Heading1,
   Heading2,
-  Heading3
+  Heading3,
+  Image as ImageIcon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -43,6 +45,13 @@ const MenuBar = ({ editor }) => {
 
   const removeLink = () => {
     editor.chain().focus().unsetLink().run();
+  };
+
+  const addImage = () => {
+    const url = window.prompt('Enter image URL:');
+    if (url) {
+      editor.chain().focus().setImage({ src: url }).run();
+    }
   };
 
   return (
@@ -181,6 +190,13 @@ const MenuBar = ({ editor }) => {
         >
           <LinkIcon className="h-4 w-4" />
         </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={addImage}
+        >
+          <ImageIcon className="h-4 w-4" />
+        </Button>
       </div>
 
       <Separator orientation="vertical" className="h-6" />
@@ -244,6 +260,11 @@ export default function TiptapEditor() {
           class: 'text-blue-600 underline cursor-pointer',
         },
       }),
+      Image.configure({
+        HTMLAttributes: {
+          class: 'max-w-full h-auto rounded-lg shadow-sm',
+        },
+      }),
     ],
     content: `
       <h1>Welcome to the Rich Text Editor</h1>
@@ -254,6 +275,7 @@ export default function TiptapEditor() {
         <li><s>Strikethrough</s> and <code>inline code</code></li>
         <li><mark>Highlighted text</mark></li>
         <li><a href="https://example.com">Links</a></li>
+        <li>Images (click the image icon in the toolbar)</li>
       </ul>
       <blockquote>
         <p>You can also create blockquotes like this one.</p>
@@ -274,7 +296,7 @@ export default function TiptapEditor() {
         <div className="h-96 overflow-y-auto">
           <EditorContent 
             editor={editor} 
-            className="prose prose-sm sm:prose-base max-w-none [&_.ProseMirror]:min-h-full [&_.ProseMirror]:p-4 [&_.ProseMirror]:focus:outline-none [&_.ProseMirror_h1]:text-3xl [&_.ProseMirror_h1]:font-bold [&_.ProseMirror_h1]:mt-6 [&_.ProseMirror_h1]:mb-4 [&_.ProseMirror_h2]:text-2xl [&_.ProseMirror_h2]:font-bold [&_.ProseMirror_h2]:mt-5 [&_.ProseMirror_h2]:mb-3 [&_.ProseMirror_h3]:text-xl [&_.ProseMirror_h3]:font-bold [&_.ProseMirror_h3]:mt-4 [&_.ProseMirror_h3]:mb-2 [&_.ProseMirror_p]:mb-3 [&_.ProseMirror_ul]:list-disc [&_.ProseMirror_ul]:pl-6 [&_.ProseMirror_ul]:mb-3 [&_.ProseMirror_ol]:list-decimal [&_.ProseMirror_ol]:pl-6 [&_.ProseMirror_ol]:mb-3 [&_.ProseMirror_li]:mb-1 [&_.ProseMirror_li]:ml-0 [&_.ProseMirror_blockquote]:border-l-4 [&_.ProseMirror_blockquote]:border-border [&_.ProseMirror_blockquote]:pl-4 [&_.ProseMirror_blockquote]:italic [&_.ProseMirror_blockquote]:text-muted-foreground [&_.ProseMirror_code]:bg-muted [&_.ProseMirror_code]:px-1 [&_.ProseMirror_code]:py-0.5 [&_.ProseMirror_code]:rounded [&_.ProseMirror_code]:text-sm [&_.ProseMirror_mark]:bg-yellow-200 [&_.ProseMirror_mark]:px-1 [&_.ProseMirror_mark]:rounded"
+            className="prose prose-sm sm:prose-base max-w-none [&_.ProseMirror]:min-h-full [&_.ProseMirror]:p-4 [&_.ProseMirror]:focus:outline-none [&_.ProseMirror_h1]:text-3xl [&_.ProseMirror_h1]:font-bold [&_.ProseMirror_h1]:mt-6 [&_.ProseMirror_h1]:mb-4 [&_.ProseMirror_h2]:text-2xl [&_.ProseMirror_h2]:font-bold [&_.ProseMirror_h2]:mt-5 [&_.ProseMirror_h2]:mb-3 [&_.ProseMirror_h3]:text-xl [&_.ProseMirror_h3]:font-bold [&_.ProseMirror_h3]:mt-4 [&_.ProseMirror_h3]:mb-2 [&_.ProseMirror_p]:mb-3 [&_.ProseMirror_ul]:list-disc [&_.ProseMirror_ul]:pl-6 [&_.ProseMirror_ul]:mb-3 [&_.ProseMirror_ol]:list-decimal [&_.ProseMirror_ol]:pl-6 [&_.ProseMirror_ol]:mb-3 [&_.ProseMirror_li]:mb-1 [&_.ProseMirror_li]:ml-0 [&_.ProseMirror_blockquote]:border-l-4 [&_.ProseMirror_blockquote]:border-border [&_.ProseMirror_blockquote]:pl-4 [&_.ProseMirror_blockquote]:italic [&_.ProseMirror_blockquote]:text-muted-foreground [&_.ProseMirror_code]:bg-muted [&_.ProseMirror_code]:px-1 [&_.ProseMirror_code]:py-0.5 [&_.ProseMirror_code]:rounded [&_.ProseMirror_code]:text-sm [&_.ProseMirror_mark]:bg-yellow-200 [&_.ProseMirror_mark]:px-1 [&_.ProseMirror_mark]:rounded [&_.ProseMirror_img]:max-w-full [&_.ProseMirror_img]:h-auto [&_.ProseMirror_img]:rounded-lg [&_.ProseMirror_img]:shadow-sm [&_.ProseMirror_img]:my-4"
           />
         </div>
       </div>
