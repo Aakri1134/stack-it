@@ -8,11 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,9 +16,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ModeToggle } from "@/components/mode-toggle";
+import { useAuth } from "../contexts/AuthContext";
 
-const isLoggedIn = true;
-const user = {
+const dummyuser = {
   name: "Utkarsh",
   avatar: "https://api.dicebear.com/6.x/personas/svg?seed=utkarsh",
 };
@@ -35,6 +31,8 @@ const suggestions = [
 ];
 
 export default function Navbar() {
+  const { user, logout } = useAuth();
+
   const [query, setQuery] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -74,16 +72,18 @@ export default function Navbar() {
 
       {/* Right Section */}
       <div className="flex items-center gap-2 whitespace-nowrap">
-        {isLoggedIn ? (
+        {user ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar className="cursor-pointer">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback>{user.name[0]}</AvatarFallback>
+                <AvatarImage src={dummyuser.avatar} alt={dummyuser.name} />
+                <AvatarFallback>{dummyuser.name[0]}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Button variant= "transparent" onClick={logout}>Logout</Button>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (

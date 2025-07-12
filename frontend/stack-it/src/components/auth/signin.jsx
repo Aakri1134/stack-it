@@ -6,8 +6,34 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mail, Lock } from "lucide-react";
+import { useState } from "react";
+import { useAuth } from '@/contexts/AuthContext';
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 
 export default function SignInPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('admin');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { loginn } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    setError('');
+    setLoading(true);
+    
+    const result = await loginn(email, password, role);
+    if (!result.success) {
+      setError(result.error);
+    }
+    if(result.email){
+      navigate('/home');
+    }
+    console.log(result);
+    setLoading(false);
+  };
+
   return (
     <main className="flex h-screen w-screen items-center justify-center bg-background p-6 text-foreground">
       <Card className="w-full max-w-sm rounded-2xl shadow-lg">
@@ -20,6 +46,8 @@ export default function SignInPage() {
               <Mail className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
               <Input
                 placeholder="Email"
+                value={email}
+            onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 className="pl-10 bg-muted text-foreground placeholder-muted-foreground"
               />
@@ -27,6 +55,8 @@ export default function SignInPage() {
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
               <Input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 type="password"
                 className="pl-10 bg-muted text-foreground placeholder-muted-foreground"
@@ -38,6 +68,8 @@ export default function SignInPage() {
               </a>
             </div>
             <Button
+              onClick={handleSubmit}
+              disabled={loading}
               type="submit"
               className="w-full rounded-xl bg-primary text-primary-foreground hover:bg-primary/90"
             >
