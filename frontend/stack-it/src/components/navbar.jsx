@@ -18,6 +18,8 @@ import {
 import { ModeToggle } from "@/components/mode-toggle";
 import { useAuth } from "../contexts/AuthContext";
 
+import { Bell } from "lucide-react";
+
 const dummyuser = {
   name: "Utkarsh",
   avatar: "https://api.dicebear.com/6.x/personas/svg?seed=utkarsh",
@@ -30,8 +32,18 @@ const suggestions = [
   "React Router vs Next.js routing",
 ];
 
+const notifications = [
+  "You got a new answer on your question",
+  "New comment on your answer",
+  "User JohnDoe upvoted your question",
+];
+
+
+
+
 export default function Navbar() {
-  const { user, logout } = useAuth();
+  const [user, setUser] = useState(true);
+  const { logout } = useAuth();
 
   const [query, setQuery] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -73,19 +85,49 @@ export default function Navbar() {
       {/* Right Section */}
       <div className="flex items-center gap-2 whitespace-nowrap">
         {user ? (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Avatar className="cursor-pointer">
-                <AvatarImage src={dummyuser.avatar} alt={dummyuser.name} />
-                <AvatarFallback>{dummyuser.name[0]}</AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>
-                <Button variant= "transparent" onClick={logout}>Logout</Button>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <>
+            {/* Bell Icon for Notifications */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="relative">
+                  <Bell className="h-5 w-5" />
+                  <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-72">
+                {notifications.length > 0 ? (
+                  notifications.map((note, i) => (
+                    <DropdownMenuItem
+                      key={i}
+                      className="text-sm whitespace-normal"
+                    >
+                      {note}
+                    </DropdownMenuItem>
+                  ))
+                ) : (
+                  <DropdownMenuItem className="text-sm text-muted-foreground">
+                    No new notifications
+                  </DropdownMenuItem>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="cursor-pointer">
+                  <AvatarImage src={dummyuser.avatar} alt={dummyuser.name} />
+                  <AvatarFallback>{dummyuser.name[0]}</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>
+                  <Button variant="transparent" onClick={logout}>
+                    Logout
+                  </Button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </>
         ) : (
           <>
             <Button variant="ghost" size="sm" className="min-w-[60px]">

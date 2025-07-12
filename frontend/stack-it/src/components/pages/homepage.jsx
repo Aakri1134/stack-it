@@ -8,6 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import QuestionCard from "@/components/questions/QuestionCard";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   return (
@@ -16,7 +17,9 @@ export default function HomePage() {
       <div className="flex items-center justify-start gap-4">
         {/* Ask a Question Button */}
         <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-          Ask a Question
+          <Link to={'/ask'}>
+             Ask a Question
+          </Link>
         </Button>
 
         {/* Sort Dropdown */}

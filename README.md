@@ -27,3 +27,36 @@ The team consists of 4 members-
 - Frontend with React.js \w shadcn
 - Backend with NodeJS + Express + MongoDB
 - Recommendation? Similarity system using python
+
+
+## Instructions to Run Locally
+
+### Frontend 
+To run the react locally
+Node Version >= 22.0.0
+
+
+npm install
+npm run dev
+
+
+### Backend
+To run the backend code
+
+Add .env file of following format
+
+MONGODB_URL=<URL to your MongoDB instance>
+PORT=3000
+JWT_SECRET=<JWT secret key>
+NODE_ENV="development"
+DB_NAME="odoo"
+ISSUER="Codemons"
+
+
+and run following code
+
+
+npm install
+node index.js
+
+Youtube video link : https://www.youtube.com/watch?v=KqRqvC3wMOc

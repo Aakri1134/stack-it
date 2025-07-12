@@ -75,6 +75,16 @@ export default function SignInPage() {
             >
               Sign In
             </Button>
+
+            {/* Go to Login Page button */}
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full rounded-xl"
+              onClick={() => (window.location.href = "/signup")}
+            >
+              Go to sign up page
+            </Button>
           </form>
         </CardContent>
       </Card>
