@@ -3,6 +3,7 @@ import getUser from "./getUser.js";
 import postQuestion from "./postQuestion.js";
 import postAnswer from "./postAnswer.js";
 import upvote from "./upvote.js";
+import downvote from "./downvote.js";
 
 const user = Router();
 
@@ -13,6 +14,7 @@ user.use("/getUser", getUser);
 user.use("/postQuestion", postQuestion);
 user.use("/postAnswer", postAnswer);
 user.use("/upvote", upvote);
+user.use("/downvote", downvote);
 
 
 export default user;

@@ -40,6 +40,12 @@ upvote.post("/", jwtAuthentication, async (req, res) => {
         return res.status(500).json({ error: "Internal Server Error" })
       }
     }
+    if(user.downvotes.includes(id)) {
+      user.downvotes = user.downvotes.filter((downvoteId) => downvoteId !== id)
+      question.downvotes -= 1
+      user.updatedAt = new Date()
+      question.updatedAt = new Date()
+    }
     user.upvotes.push(id)
     user.updatedAt = new Date()
     question.upvotes += 1
@@ -94,6 +100,12 @@ upvote.post("/", jwtAuthentication, async (req, res) => {
         console.error("Error saving question:", err)
         return res.status(500).json({ error: "Internal Server Error" })
       }
+    }
+    if (user.downvotes.includes(id)) {
+      user.downvotes = user.downvotes.filter((downvoteId) => downvoteId !== id)
+      answer.downvotes -= 1
+      user.updatedAt = new Date()
+      answer.updatedAt = new Date()
     }
     user.upvotes.push(id)
     user.updatedAt = new Date()
