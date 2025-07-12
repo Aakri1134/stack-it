@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import { id } from "zod/v4/locales"
 
 const userSchema = new mongoose.Schema({
   type: {
@@ -38,6 +39,15 @@ const userSchema = new mongoose.Schema({
       ref: "Question",
     },
   ],
+  upvotes: {
+    type: [String],
+    default: [],
+  },
+  downvotes: {
+    type: [String],
+    default: [],
+  },
+
   answers: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -46,8 +56,27 @@ const userSchema = new mongoose.Schema({
   ],
   notifications: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Notification",
+      type: {
+        type: String,
+        enum: ["answer", "upvote", "downvote"],
+        required: true,
+      },
+      message: {
+        type: String,
+        required: true,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+      questionId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Question",
+      },
+      answerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Answer",
+      },
     },
   ],
 })
@@ -96,7 +125,7 @@ const questionSchema = new mongoose.Schema({
 })
 
 const answerSchema = new mongoose.Schema({
-  content: {
+  answer: {
     type: String,
     required: true,
   },
@@ -105,7 +134,7 @@ const answerSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  question: {
+  questionId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Question",
     required: true,
