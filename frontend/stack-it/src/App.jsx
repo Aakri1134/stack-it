@@ -1,13 +1,25 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { Button } from "./components/ui/button";
 import { ModeToggle } from "./components/mode-toggle";
+import { Route, Routes } from "react-router-dom";
+import SignInPage from "./components/auth/signin";
+import SignUpPage from "./components/auth/signup";
 
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="flex min-h-svh flex-col items-center justify-center">
-        <ModeToggle/>
-      </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="flex min-h-svh flex-col items-center justify-center">
+              <ModeToggle />
+            </div>
+          }
+        />
+        <Route path="/login" element={<SignInPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+      </Routes>
     </ThemeProvider>
   );
 }
