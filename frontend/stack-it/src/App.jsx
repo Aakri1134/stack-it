@@ -5,7 +5,9 @@ import { Route, Routes } from "react-router-dom";
 import SignInPage from "./components/auth/signin";
 import SignUpPage from "./components/auth/signup";
 import TiptapEditor from "./components/texteditor";
-
+import AskQuestionPage from "./components/pages/askquestionpage";
+import Navbar from "./components/navbar";
+import Footer from "./components/footer";
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
@@ -21,7 +23,11 @@ function App() {
         />
         <Route path="/login" element={<SignInPage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        
       </Routes>
+      
+      <AskQuestionPage />
+      <Footer />
     </ThemeProvider>
   );
 }
