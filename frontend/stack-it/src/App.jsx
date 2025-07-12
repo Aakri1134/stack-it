@@ -4,6 +4,7 @@ import { ModeToggle } from "./components/mode-toggle";
 import { Route, Routes } from "react-router-dom";
 import SignInPage from "./components/auth/signin";
 import SignUpPage from "./components/auth/signup";
+import TiptapEditor from "./components/texteditor";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           element={
             <div className="flex min-h-svh flex-col items-center justify-center">
               <ModeToggle />
+              <TiptapEditor />
             </div>
           }
         />
