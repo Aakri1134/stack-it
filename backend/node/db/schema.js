@@ -1,22 +1,29 @@
 import mongoose from "mongoose";
 
-mongoose.connect("mongodb://localhost:27017/yourdbname", {
-    useCreateIndex: true,
-}).then(() => {
-    console.log("MongoDB connected successfully");
-}).catch(err => {
-    console.error("MongoDB connection error:", err);
-});
 
 const userSchema = new mongoose.Schema({
+    type: {
+        type: String,
+        enum: ["user", "admin"],
+        default: "user"
+    },
     username: {
         type: String,
         required: true,
         unique: true
     },  
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
     password: {
         type: String,
         required: true
+    },
+    activeSessions: {
+        type: [String],
+        default: []
     },
     createdAt: {
         type: Date,
@@ -39,3 +46,5 @@ const userSchema = new mongoose.Schema({
         ref: "Notification"
     }]
 });
+
+export const User = mongoose.model("User", userSchema);
