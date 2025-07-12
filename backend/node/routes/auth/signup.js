@@ -1,22 +1,23 @@
-import e, { Router } from "express"
+import { Router } from "express"
 import bcrypt from "bcrypt"
 import { User } from "../../db/schema.js"
 import jwt from "jsonwebtoken"
-import { ca } from "zod/v4/locales"
-import { uuid } from "zod"
 
 export const signup = Router()
 
-signup.post("/user", async (req, res) => {
+signup.post("/", async (req, res) => {
   const { username, email, password, role } = req.body
   if (!username || !password || !email || !role) {
-    return res.status(400).json({ error: "Username and password are required" })
+    return res.status(400).json({ error: "Username, Email, Role and password are required" })
   }
   const userExists = await User.findOne({ email })
   if (userExists) {
-    return res.status(400).json({ error: "Username already exists" })
+    return res.status(400).json({ error: "Email already exists" })
   }
-  const jwtID = uuid.v4()
+  const jwtID = crypto.randomUUID()
+  if (!jwtID) {
+    return res.status(500).json({ error: "Failed to generate JWT ID" })
+  }
   const hashedPassword = bcrypt.hashSync(password, 10)
   const newUser = new User({
     username,

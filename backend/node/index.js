@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(validateUserInput)
 
 app.get("/", (req, res) => {
-  res.send("Welcome to the API");
+  return res.send("Welcome to the API");
 });
 // routes --->
 app.use("/auth", authRoute);
@@ -31,6 +31,7 @@ app.use("/user", userRoute );
 
 app.use((err, req, res, next) => {
 // Global error handler
+console.error("Error occurred:", err);
   res.status(500).json({
     error: "Internal Server Error",
   });

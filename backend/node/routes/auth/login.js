@@ -23,7 +23,10 @@ login.post("/", async (req, res) => {
     return res.status(400).json({ error: "Invalid email or password" })
   }
 
-  const jwtID = uuid.v4()
+  const jwtID = crypto.randomUUID()
+  if (!jwtID) {
+    return res.status(500).json({ error: "Failed to generate JWT ID" })
+  }
   const token = jwt.sign(
     {
       iss: process.env.ISSUER || "Codemons",

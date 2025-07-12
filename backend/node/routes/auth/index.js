@@ -8,7 +8,7 @@ auth.get("/", (req, res) => {
   return res.status(200).json({ message: "Auth route is working" });
 });
 
-auth.post("/login", login);
-auth.post("/signup", signup);
+auth.use("/login", login);
+auth.use("/signup", signup);
 
 export default auth;
